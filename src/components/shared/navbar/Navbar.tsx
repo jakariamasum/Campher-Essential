@@ -59,7 +59,7 @@ const Navbar = () => {
   ];
 
   return (
-    <div className="shadow-md relative">
+    <div className="shadow-md ">
       <div className="max-w-[1230px] mx-auto flex items-center justify-between px-4 lg:px-0 py-4">
         <div className="flex items-center">
           <div className="dropdown lg:hidden">
