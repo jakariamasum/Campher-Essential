@@ -1,0 +1,12 @@
+.menu {
+  transition: opacity 2s ease-in-out, transform 2s ease-in-out;
+  transition-property: all;
+}
+.menu_hidden {
+  opacity: 0;
+  transform: scale(0.95);
+}
+.menu_visible {
+  opacity: 100;
+  transform: scale(1);
+}
