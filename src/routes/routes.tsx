@@ -9,6 +9,7 @@ import ProductDetailsPage from "../pages/productdetails/ProductDetails";
 import Checkout from "../pages/checkout/Checkout";
 import Success from "../pages/success/Success";
 import ProductManagement from "../pages/productmanagement/ProductManagement";
+import CategoryPage from "../pages/category/CategoryPage";
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
       {
         path: "products/:productId",
         element: <ProductDetailsPage />,
+      },
+      {
+        path: "category",
+        element: <CategoryPage />,
       },
       {
         path: "checkout",

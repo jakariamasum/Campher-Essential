@@ -18,62 +18,54 @@ const Category = () => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         <div className="relative group">
-          <Link to={"/product/tent"}>
-            <img
-              src={TentImage}
-              className="rounded hover:scale-95 transition-all h-[550px]"
-              height={500}
-              width={500}
-              alt="Tent"
-            />
-            <h2 className="text-[#22A1F0] text-center text-xl font-medium absolute bottom-3 left-3 group-hover:text-3xl group-hover:font-semibold group-hover:drop-shadow transition-all group-hover:bottom-8 group-hover:left-8">
-              Tents
-            </h2>
-          </Link>
+          <img
+            src={TentImage}
+            className="rounded hover:scale-95 transition-all h-[550px]"
+            height={500}
+            width={500}
+            alt="Tent"
+          />
+          <h2 className="text-[#22A1F0] text-center text-xl font-medium absolute bottom-3 left-3 group-hover:text-3xl group-hover:font-semibold group-hover:drop-shadow transition-all group-hover:bottom-8 group-hover:left-8">
+            Tents
+          </h2>
         </div>
         <div className="space-y-5">
           <div className="relative group">
-            <Link to={"/product/sleeping-bag"}>
-              <img
-                src={SleepingBagImage}
-                className="rounded hover:scale-95 transition-all h-[265px]"
-                height={400}
-                width={500}
-                alt="Sleeping Bag"
-              />
-              <h2 className="text-[#22A1F0] text-xl font-medium absolute bottom-3 left-3 group-hover:text-3xl group-hover:font-semibold group-hover:drop-shadow transition-all duration-500 group-hover:bottom-8 group-hover:left-8">
-                Sleeping Bags
-              </h2>
-            </Link>
+            <img
+              src={SleepingBagImage}
+              className="rounded hover:scale-95 transition-all h-[265px]"
+              height={400}
+              width={500}
+              alt="Sleeping Bag"
+            />
+            <h2 className="text-[#22A1F0] text-xl font-medium absolute bottom-3 left-3 group-hover:text-3xl group-hover:font-semibold group-hover:drop-shadow transition-all duration-500 group-hover:bottom-8 group-hover:left-8">
+              Sleeping Bags
+            </h2>
           </div>
           <div className="relative group">
-            <Link to={"/product/camping-gear"}>
-              <img
-                src={CampingGearImage}
-                className="rounded hover:scale-95 transition-all h-[265px]"
-                height={400}
-                width={500}
-                alt="Camping Gear"
-              />
-              <h2 className="text-[#22A1F0] text-xl font-medium absolute bottom-3 left-3 group-hover:text-3xl group-hover:font-semibold group-hover:drop-shadow transition-all group-hover:bottom-8 group-hover:left-8">
-                Camping Gear
-              </h2>
-            </Link>
+            <img
+              src={CampingGearImage}
+              className="rounded hover:scale-95 transition-all h-[265px]"
+              height={400}
+              width={500}
+              alt="Camping Gear"
+            />
+            <h2 className="text-[#22A1F0] text-xl font-medium absolute bottom-3 left-3 group-hover:text-3xl group-hover:font-semibold group-hover:drop-shadow transition-all group-hover:bottom-8 group-hover:left-8">
+              Camping Gear
+            </h2>
           </div>
         </div>
         <div className="relative group">
-          <Link to={"/product/camping-tools"}>
-            <img
-              src={CampingGearImage}
-              className="rounded hover:scale-95 transition-all h-[550px]"
-              height={700}
-              width={500}
-              alt="Camping Tools"
-            />
-            <h2 className="text-[#22A1F0] text-xl font-medium absolute bottom-3 left-3 group-hover:text-3xl group-hover:font-semibold group-hover:drop-shadow transition-all group-hover:bottom-8 group-hover:left-8">
-              Camping Tools
-            </h2>
-          </Link>
+          <img
+            src={CampingGearImage}
+            className="rounded hover:scale-95 transition-all h-[550px]"
+            height={700}
+            width={500}
+            alt="Camping Tools"
+          />
+          <h2 className="text-[#22A1F0] text-xl font-medium absolute bottom-3 left-3 group-hover:text-3xl group-hover:font-semibold group-hover:drop-shadow transition-all group-hover:bottom-8 group-hover:left-8">
+            Camping Tools
+          </h2>
         </div>
       </div>
       <div className="text-center mt-6">

@@ -29,8 +29,8 @@ const Navbar = () => {
       </Link>
     </li>,
     <li key="item4" className="lg:mr-6" onClick={closeDropdown}>
-      <Link to="/flash-sale" className="hover:text-blue-500">
-        Flash Sale
+      <Link to="/category" className="hover:text-blue-500">
+        Category
       </Link>
     </li>,
     <li key="item5" className="lg:mr-6" onClick={closeDropdown}>
@@ -38,11 +38,7 @@ const Navbar = () => {
         About Us
       </Link>
     </li>,
-    <li key="item6" className="lg:mr-6" onClick={closeDropdown}>
-      <Link to="/contact" className="hover:text-blue-500">
-        Contact Us
-      </Link>
-    </li>,
+
     <li
       key="item7"
       className="lg:mr-6 flex items-center"
