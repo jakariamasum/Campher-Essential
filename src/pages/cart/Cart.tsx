@@ -4,7 +4,6 @@ import {
   removeFromCart,
   updateCartQuantity,
 } from "../../redux/features/cart/cartSlice";
-import { FaPlus, FaMinus } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { useNavigate } from "react-router-dom";
 
@@ -52,40 +51,15 @@ const Cart = () => {
       </h1>
 
       {cartItems.length > 0 ? (
-        <div className="">
+        <div>
           {cartItems.map((item) => (
-            <div
+            <ItemDetails
               key={item.product._id}
-              className="flex items-center justify-between border-b py-4"
-            >
-              <ItemDetails item={item.product} />
-              <div className="flex items-center">
-                <button
-                  onClick={() => handleDecreaseQuantity(item.product._id)}
-                  className="bg-gray-200 px-2 py-1 rounded-l"
-                >
-                  <FaMinus />
-                </button>
-                <input
-                  type="number"
-                  value={item.quantity}
-                  readOnly
-                  className="border border-gray-300 rounded-none px-3 py-1 w-20 text-center"
-                />
-                <button
-                  onClick={() => handleIncreaseQuantity(item.product._id)}
-                  className="bg-gray-200 px-2 py-1 rounded-r"
-                >
-                  <FaPlus />
-                </button>
-              </div>
-              <button
-                onClick={() => handleRemoveFromCart(item.product._id)}
-                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700"
-              >
-                Remove
-              </button>
-            </div>
+              item={item}
+              handleIncreaseQuantity={handleIncreaseQuantity}
+              handleDecreaseQuantity={handleDecreaseQuantity}
+              handleRemoveFromCart={handleRemoveFromCart}
+            />
           ))}
         </div>
       ) : (
@@ -95,6 +69,7 @@ const Cart = () => {
           </span>
         </div>
       )}
+
       <div className="bg-slate-50 lg:mt-0 mt-8 ml-3 rounded-md fixed lg:w-64 w-[90%] md:w-72 top-100 md:top-40 md:right-5 h-auto md:h-72 border border-[#21A0F3] shadow-lg p-4 z-[999]">
         <h1 className="text-xl md:text-2xl font-bold text-center mb-4">
           Order <span className="text-[#21A0F3]">Summary</span>
