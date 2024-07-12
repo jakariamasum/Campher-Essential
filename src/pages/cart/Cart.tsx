@@ -1,18 +1,91 @@
+import { RootState } from "../../redux/store";
 import ItemDetails from "../../components/ui/ItemDetails";
+import {
+  removeFromCart,
+  updateCartQuantity,
+} from "../../redux/features/cart/cartSlice";
+import { FaPlus, FaMinus } from "react-icons/fa";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
-  const products = ["add", "add"];
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const cartItems = useAppSelector((state: RootState) => state.cart.items);
+
+  const handleIncreaseQuantity = (productId: string) => {
+    const item = cartItems.find((item) => item.product._id === productId);
+    if (item && item.quantity < item.product.stock) {
+      dispatch(updateCartQuantity({ productId, quantity: item.quantity + 1 }));
+    }
+  };
+
+  const handleDecreaseQuantity = (productId: string) => {
+    const item = cartItems.find((item) => item.product._id === productId);
+    if (item && item.quantity > 1) {
+      dispatch(updateCartQuantity({ productId, quantity: item.quantity - 1 }));
+    }
+  };
+
+  const handleRemoveFromCart = (productId: string) => {
+    dispatch(removeFromCart(productId));
+  };
+
+  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  const totalPrice = cartItems.reduce(
+    (sum, item) => sum + item.product.price * item.quantity,
+    0
+  );
+
+  const handlePlaceOrder = () => {
+    navigate("/checkout");
+  };
+
+  const isPlaceOrderDisabled = cartItems.some(
+    (item) => item.product.stock === 0
+  );
 
   return (
     <div className="max-w-[1230px] mx-auto px-2 min-h-screen">
       <h1 className="text-3xl text-center font-semibold my-5">
-        Your Added Products in The<span className="text-[#22A1F0]"> Cart</span>
+        Your Added Products in The <span className="text-[#22A1F0]">Cart</span>
       </h1>
 
-      {products.length > 0 ? (
+      {cartItems.length > 0 ? (
         <div className="">
-          {products.map((item, index) => (
-            <ItemDetails key={index} item={item} />
+          {cartItems.map((item) => (
+            <div
+              key={item.product._id}
+              className="flex items-center justify-between border-b py-4"
+            >
+              <ItemDetails item={item.product} />
+              <div className="flex items-center">
+                <button
+                  onClick={() => handleDecreaseQuantity(item.product._id)}
+                  className="bg-gray-200 px-2 py-1 rounded-l"
+                >
+                  <FaMinus />
+                </button>
+                <input
+                  type="number"
+                  value={item.quantity}
+                  readOnly
+                  className="border border-gray-300 rounded-none px-3 py-1 w-20 text-center"
+                />
+                <button
+                  onClick={() => handleIncreaseQuantity(item.product._id)}
+                  className="bg-gray-200 px-2 py-1 rounded-r"
+                >
+                  <FaPlus />
+                </button>
+              </div>
+              <button
+                onClick={() => handleRemoveFromCart(item.product._id)}
+                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700"
+              >
+                Remove
+              </button>
+            </div>
           ))}
         </div>
       ) : (
@@ -27,11 +100,22 @@ const Cart = () => {
           Order <span className="text-[#21A0F3]">Summary</span>
         </h1>
         <h3 className="font-semibold pb-1 text-sm md:text-base">
-          Selected Items: 0
+          Selected Items: {totalItems}
         </h3>
         <h3 className="font-semibold pb-1 text-sm md:text-base">
-          Total Price: 0
+          Total Price: ${totalPrice.toFixed(2)}
         </h3>
+        <button
+          onClick={handlePlaceOrder}
+          disabled={isPlaceOrderDisabled || cartItems.length === 0}
+          className={`bg-[#22A1F0] hover:bg-black text-white px-8 py-2 rounded mt-4 ${
+            isPlaceOrderDisabled || cartItems.length === 0
+              ? "disabled:bg-gray-400 disabled:pointer-events-none"
+              : ""
+          }`}
+        >
+          Place Order
+        </button>
       </div>
     </div>
   );

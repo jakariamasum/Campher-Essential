@@ -12,7 +12,7 @@ import {
 
 const Hero = () => {
   return (
-    <div className="absolute max-w-full mx-auto px-2 mb-24 lg:mb-0">
+    <div className=" max-w-full mx-auto px-2 mb-24 lg:mb-0">
       <Swiper
         cssMode={true}
         loop={true}
