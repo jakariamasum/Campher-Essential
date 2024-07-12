@@ -3,7 +3,11 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
-import avater from "../../../assets/images/avatar.png";
+import avater from "../../../assets/images/avater2.jpg";
+import avater2 from "../../../assets/images/avater3.jpg";
+import avater3 from "../../../assets/images/avatar.png";
+import avater4 from "../../../assets/images/avatar4.jpg";
+import avater5 from "../../../assets/images/avatar5.jpg";
 import quote from "../../../assets/images/qoute.png";
 import top_vector from "../../../assets/images/top_vector.png";
 import bottom_vector from "../../../assets/images/bottom_vector.png";
@@ -21,7 +25,7 @@ const Testimonials = () => {
     },
     {
       id: "02",
-      image: avater,
+      image: avater2,
       quote:
         "Excellent service and fast delivery. I'll definitely shop here again.",
       name: "Jane Smith",
@@ -29,7 +33,7 @@ const Testimonials = () => {
     },
     {
       id: "03",
-      image: avater,
+      image: avater3,
       quote:
         "The tent I bought was easy to set up and very durable. Highly recommend!",
       name: "Michael Brown",
@@ -37,7 +41,7 @@ const Testimonials = () => {
     },
     {
       id: "04",
-      image: avater,
+      image: avater4,
       quote:
         "Great variety of products and competitive prices. Very satisfied with my purchase.",
       name: "Emily Johnson",
@@ -45,7 +49,7 @@ const Testimonials = () => {
     },
     {
       id: "05",
-      image: avater,
+      image: avater5,
       quote:
         "Customer service was very helpful in choosing the right gear for my trip.",
       name: "Chris Lee",
