@@ -5,6 +5,9 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import team1 from "../../assets/images/team1.jpg";
+import team2 from "../../assets/images/team2.jpg";
+import team3 from "../../assets/images/team3.jpg";
 
 const AboutUs = () => {
   const teamMembers = [
@@ -12,19 +15,19 @@ const AboutUs = () => {
       name: "John Doe",
       role: "CEO",
       bio: "John has over 20 years of experience in the outdoor and camping industry.",
-      image: "/images/team/john_doe.jpg",
+      image: team1,
     },
     {
       name: "Jane Smith",
       role: "Marketing Manager",
       bio: "Jane is passionate about outdoor adventures and leading our marketing strategies.",
-      image: "/images/team/jane_smith.jpg",
+      image: team2,
     },
     {
       name: "Alex Johnson",
       role: "Product Manager",
       bio: "Alex ensures we have the best products available for our customers.",
-      image: "/images/team/alex_johnson.jpg",
+      image: team3,
     },
   ];
 

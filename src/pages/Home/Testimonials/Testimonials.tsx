@@ -1,54 +1,130 @@
-import React from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Navigation, Pagination } from "swiper/modules";
+import avater from "../../../assets/images/avatar.png";
+import quote from "../../../assets/images/qoute.png";
+import top_vector from "../../../assets/images/top_vector.png";
+import bottom_vector from "../../../assets/images/bottom_vector.png";
+import star from "../../../assets/images/star.png";
 
 const Testimonials = () => {
-  const testimonials = [
+  const reviews = [
     {
+      id: "01",
+      image: avater,
+      quote:
+        "Amazing camping gear! The quality is top-notch and made my trip unforgettable.",
       name: "John Doe",
-      feedback:
-        "Campers Shop provided me with all the essentials for my camping trip. The quality of the gear was top-notch and made my experience unforgettable.",
-      image: "../../../assets/images/category1.jpg",
+      position: "Outdoor Enthusiast",
     },
     {
+      id: "02",
+      image: avater,
+      quote:
+        "Excellent service and fast delivery. I'll definitely shop here again.",
       name: "Jane Smith",
-      feedback:
-        "I love shopping at Campers Shop! Their customer service is excellent, and they have a great selection of products. I highly recommend them!",
-      image: "/images/testimonials/jane_smith.jpg",
+      position: "Adventure Seeker",
     },
     {
-      name: "Alex Johnson",
-      feedback:
-        "The tents and backpacks I bought from Campers Shop were perfect for our family camping trip. They made our adventure comfortable and enjoyable.",
-      image: "/images/testimonials/alex_johnson.jpg",
+      id: "03",
+      image: avater,
+      quote:
+        "The tent I bought was easy to set up and very durable. Highly recommend!",
+      name: "Michael Brown",
+      position: "Camper",
+    },
+    {
+      id: "04",
+      image: avater,
+      quote:
+        "Great variety of products and competitive prices. Very satisfied with my purchase.",
+      name: "Emily Johnson",
+      position: "Backpacker",
+    },
+    {
+      id: "05",
+      image: avater,
+      quote:
+        "Customer service was very helpful in choosing the right gear for my trip.",
+      name: "Chris Lee",
+      position: "Hiker",
     },
   ];
 
   return (
-    <div className="max-w-[1230px] mx-auto my-12 px-4">
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-semibold mb-4">
-          What Our Customers <span className="text-[#22A1F0]">Say</span>
-        </h1>
+    <section className="w-full mx-auto max-w-[1400px] px-6 mt-24 overflow-hidden">
+      <div className="mx-auto text-center">
+        <h2 className="text-[25px] md:text-[40px] text-textColor font-[600]">
+          Check what our{" "}
+          <span className="text-blue-500">clients are saying</span>{" "}
+        </h2>
         <p className="text-lg text-gray-400">
-          Hear from our satisfied customers about their experiences with Campers
-          Shop. We value your feedback!
+          Here are some of the most reviews we receive about our products and
+          services. Take a look here.
         </p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {testimonials.map((testimonial, index) => (
-          <div key={index} className="bg-white p-6 rounded-lg shadow-lg">
-            <img
-              src={testimonial.image}
-              alt={testimonial.name}
-              className="w-24 h-24 rounded-full mx-auto mb-4"
-            />
-            <h3 className="text-xl font-semibold text-center mb-2">
-              {testimonial.name}
-            </h3>
-            <p className="text-gray-600 text-center">{testimonial.feedback}</p>
-          </div>
+
+      <Swiper
+        slidesPerView={1}
+        spaceBetween={30}
+        pagination={{ clickable: true }}
+        navigation={true}
+        modules={[Pagination, Navigation]}
+        className="mySwiper mt-12"
+        breakpoints={{
+          640: { slidesPerView: 1 },
+          768: { slidesPerView: 1 },
+          1024: { slidesPerView: 1 },
+        }}
+      >
+        {reviews.map((review) => (
+          <SwiperSlide key={review.id}>
+            <div className=" flex flex-col lg:flex-row gap-6  items-center p-6 bg-white rounded-lg shadow-lg">
+              <div className="relative">
+                <img
+                  src={top_vector}
+                  alt="vector_image"
+                  className="absolute top-[-50px] left-[-50px] z-10"
+                />
+                <img
+                  src={review.image}
+                  alt={review.name}
+                  className="w-[250px] md:w-[350px]"
+                />
+                <img
+                  src={bottom_vector}
+                  alt="vector_image"
+                  className="w-[80px] md:w-[120px] absolute bottom-[-70px] right-[-70px] z-10"
+                />
+              </div>
+              <div className="w-full text-center">
+                <img
+                  src={quote}
+                  alt="quote"
+                  className="mb-6 w-[20px] md:w-[50px] mx-auto"
+                />
+                <img
+                  src={star}
+                  alt="star"
+                  className="w-[100px] md:w-[200px] mx-auto"
+                />
+                <p className="text-[20px] md:text-[30px] font-[500] my-3">
+                  {review.quote}
+                </p>
+                <h2 className="text-[18px] md:text-[20px] font-[500] mt-6">
+                  {review.name}
+                </h2>
+                <p className="text-[14px] md:text-[16px] text-[#757095]">
+                  {review.position}
+                </p>
+              </div>
+            </div>
+          </SwiperSlide>
         ))}
-      </div>
-    </div>
+      </Swiper>
+    </section>
   );
 };
 

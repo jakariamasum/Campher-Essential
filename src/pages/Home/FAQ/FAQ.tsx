@@ -3,7 +3,8 @@ import { useState } from "react";
 const FAQ = () => {
   const [openIndex, setOpenIndex] = useState(null);
 
-  const toggleFAQ = (index) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const toggleFAQ = (index: any) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
@@ -36,7 +37,7 @@ const FAQ = () => {
   ];
 
   return (
-    <div className="max-w-[1230px] mx-auto my-12 px-4">
+    <div className="max-w-[1230px] mx-auto my-24 px-4">
       <div className="text-center mb-8">
         <h1 className="text-3xl font-semibold mb-4">
           Frequently Asked <span className="text-[#22A1F0]">Questions</span>

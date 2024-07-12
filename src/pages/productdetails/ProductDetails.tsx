@@ -7,6 +7,8 @@ import { RootState } from "../../redux/store";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaPlus, FaMinus } from "react-icons/fa";
+import { Rating, Star } from "@smastrom/react-rating";
+import "@smastrom/react-rating/style.css";
 
 const ProductDetailsPage = () => {
   const { productId } = useParams();
@@ -62,6 +64,13 @@ const ProductDetailsPage = () => {
     }
   };
 
+  const myStyles = {
+    itemShapes: Star,
+    activeFillColor: "hsla(32, 100%, 50%, 1)",
+    inactiveFillColor: "#888",
+  };
+  const randomNumber = Math.floor(Math.random() * (200 - 40 + 1)) + 40;
+
   if (isLoading) return <div className="text-center mt-8">Loading...</div>;
   if (error) return <div className="text-center mt-8">Error</div>;
 
@@ -96,6 +105,15 @@ const ProductDetailsPage = () => {
             {product.description ||
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla commodo metus non erat tristique, in ultricies orci rhoncus."}
           </p>
+          <div className="flex items-center gap-1 mb-4">
+            <Rating
+              style={{ maxWidth: 100 }}
+              itemStyles={myStyles}
+              value={product?.ratings}
+              readOnly
+            />
+            <span>({randomNumber})</span>
+          </div>
           <div className="flex items-center mb-4">
             <label htmlFor="quantity" className="mr-2">
               Quantity:
