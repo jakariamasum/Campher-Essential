@@ -97,7 +97,7 @@ const ProductDetailsPage = () => {
           </p>
           <p className="text-gray-600 mb-4">
             <span className="font-semibold">Stock Quantity:</span>{" "}
-            {product.stock || "Stock Quantity"}
+            {product.stock || "Out of stock"}
           </p>
           <p className="text-gray-600 mb-4">
             <span className="font-semibold">Description:</span>{" "}

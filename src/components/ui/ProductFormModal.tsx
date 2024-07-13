@@ -51,7 +51,7 @@ const ProductModal: React.FC<ProductModalProps> = ({
       category: data.category,
       price: Number(data.price),
       stock: Number(data.stock),
-      ratings: Number(data.ratings),
+      ratings: Number(data.ratings) | 0,
       description: data.description,
     };
 
@@ -140,7 +140,7 @@ const ProductModal: React.FC<ProductModalProps> = ({
                 Ratings
               </label>
               <input
-                type="number"
+                type="text"
                 {...register("ratings", {
                   required: "Ratings are required",
                 })}
@@ -213,7 +213,7 @@ const ProductModal: React.FC<ProductModalProps> = ({
                   <img
                     src={currentImage}
                     alt="Current"
-                    className="mt-2 max-w-full h-auto object-contain"
+                    className="mt-2 max-w-full h-24  object-contain"
                   />
                 )}
                 <button
