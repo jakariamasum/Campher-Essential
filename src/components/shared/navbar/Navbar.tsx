@@ -103,7 +103,7 @@ const Navbar = () => {
               )}
             </div>
             {isDropdownOpen && (
-              <ul className="menu z-10 menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+              <ul className="menu z-10 menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-32">
                 {items}
               </ul>
             )}
@@ -112,7 +112,7 @@ const Navbar = () => {
           <Link to="/">
             {
               <img
-                className="lg:-ml-4 bg-red-500 ml-8 hover:scale-110 transition-all duration-300"
+                className="hidden lg:block lg:-ml-4 bg-red-500 ml-8 hover:scale-110 transition-all duration-300"
                 src={logo}
                 alt="Logo"
                 width={80}

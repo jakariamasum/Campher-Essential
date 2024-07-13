@@ -9,6 +9,9 @@ import {
   Mousewheel,
   Keyboard,
 } from "swiper/modules";
+import hero1 from "../../../assets/images/hero1.jpg";
+import hero2 from "../../../assets/images/hero2.jpg";
+import hero3 from "../../../assets/images/hero3.jpg";
 
 const Hero = () => {
   return (
@@ -32,8 +35,7 @@ const Hero = () => {
           <div
             className="lg:h-[100vh] h-[83vh] bg-cover bg-center rounded-md flex items-center justify-center"
             style={{
-              backgroundImage:
-                "url('https://i.ibb.co/BGx7Sn9/holly-mandarich-UVy-Of-X3v0-Ls-unsplash.jpg')",
+              backgroundImage: `url(${hero2})`,
             }}
           >
             <div className="text-center text-white px-4">
@@ -57,8 +59,7 @@ const Hero = () => {
           <div
             className="lg:h-[100vh] h-[83vh] bg-cover bg-center rounded-md flex items-center justify-center"
             style={{
-              backgroundImage:
-                "url('https://i.ibb.co/KxQcmKD/chris-holder-u-Y2-UIy-O5o5c-unsplash.jpg')",
+              backgroundImage: `url(${hero1})`,
             }}
           >
             <div className="text-center text-white px-4">
@@ -82,8 +83,7 @@ const Hero = () => {
           <div
             className="lg:h-[100vh] h-[83vh] bg-cover bg-center rounded-md flex items-center justify-center"
             style={{
-              backgroundImage:
-                "url('https://i.ibb.co/BGx7Sn9/holly-mandarich-UVy-Of-X3v0-Ls-unsplash.jpg')",
+              backgroundImage: `url(${hero3})`,
             }}
           >
             <div className="text-center text-white px-4">
