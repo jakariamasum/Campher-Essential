@@ -52,11 +52,7 @@ const ProductManagement = () => {
       if (result.isConfirmed) {
         await deleteProduct(id);
         refetch();
-        Swal.fire({
-          title: "Deleted!",
-          text: "Product has been deleted.",
-          icon: "success",
-        });
+        toast.success("Product has been deleted.");
       }
     });
   };
@@ -75,21 +71,25 @@ const ProductManagement = () => {
 
   return (
     <div className="max-w-[1230px] mx-auto py-12 px-4">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-semibold">Product Management</h1>
+      <div className="flex flex-col lg:flex-row justify-between items-center mb-8">
+        <h1 className="text-3xl font-semibold mb-4 lg:mb-0">
+          Product Management
+        </h1>
         <button
           onClick={handleCreate}
-          className="bg-blue-500 text-white px-4 py-2 rounded"
+          className="bg-blue-500 text-white px-4 py-2 rounded mt-4 lg:mt-0 lg:ml-4"
         >
           Create New Product
         </button>
       </div>
 
-      <ProductListTable
-        products={products || []}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-      />
+      <div className="overflow-x-auto">
+        <ProductListTable
+          products={products || []}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
+      </div>
 
       {isModalOpen && (
         <ProductModal

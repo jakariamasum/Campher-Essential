@@ -153,7 +153,7 @@ const ProductDetailsPage = () => {
           </button>
         </div>
       </div>
-      <Toaster position="top-center" richColors />
+      <Toaster position="top-right" richColors />
     </div>
   );
 };

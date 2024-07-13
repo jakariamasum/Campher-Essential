@@ -24,14 +24,7 @@ const Checkout: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>({
-    defaultValues: {
-      name: "abc",
-      address: "sd",
-      email: "a@d.com",
-      phoneNumber: "455",
-    },
-  });
+  } = useForm<FormValues>();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const cartItems = useAppSelector((state: RootState) => state.cart.items);

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Product } from "../../types/product";
-import { toast, Toaster } from "sonner";
 
 interface FormValues {
   name: string;
@@ -79,7 +78,6 @@ const ProductModal: React.FC<ProductModalProps> = ({
     }
 
     onSubmit(productDetails as unknown as FormValues);
-    toast.success("Changes have been saved");
     reset();
     onClose();
   };
@@ -87,8 +85,8 @@ const ProductModal: React.FC<ProductModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-20 bg-gray-500 bg-opacity-75 flex items-center justify-center overflow-y-auto">
-      <div className="bg-white p-8 rounded shadow-lg w-1/2">
+    <div className="fixed inset-0 z-10 bg-gray-500 bg-opacity-75 flex items-center justify-center overflow-y-auto">
+      <div className="bg-white p-8 mt-16 rounded shadow-lg w-full md:max-w-lg mx-4 max-h-full overflow-y-auto">
         <h2 className="text-2xl mb-4">
           {defaultValues ? "Edit Product" : "Create Product"}
         </h2>
@@ -143,7 +141,9 @@ const ProductModal: React.FC<ProductModalProps> = ({
               </label>
               <input
                 type="number"
-                {...register("ratings", { required: "Ratings are required" })}
+                {...register("ratings", {
+                  required: "Ratings are required",
+                })}
                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
               />
               {errors.ratings && (
@@ -158,7 +158,9 @@ const ProductModal: React.FC<ProductModalProps> = ({
               Category
             </label>
             <input
-              {...register("category", { required: "Category is required" })}
+              {...register("category", {
+                required: "Category is required",
+              })}
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
             />
             {errors.category && (
@@ -180,6 +182,11 @@ const ProductModal: React.FC<ProductModalProps> = ({
                   })}
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
                 />
+                {errors.imageUrl && (
+                  <span className="text-red-500 text-sm">
+                    {errors.imageUrl.message}
+                  </span>
+                )}
                 <button
                   type="button"
                   onClick={() => setUseUrl(false)}
@@ -206,7 +213,7 @@ const ProductModal: React.FC<ProductModalProps> = ({
                   <img
                     src={currentImage}
                     alt="Current"
-                    className="mt-2 max-w-xs bg-red-500 h-48"
+                    className="mt-2 max-w-full h-auto object-contain"
                   />
                 )}
                 <button
@@ -255,7 +262,6 @@ const ProductModal: React.FC<ProductModalProps> = ({
           </div>
         </form>
       </div>
-      <Toaster position="top-center" richColors />
     </div>
   );
 };
