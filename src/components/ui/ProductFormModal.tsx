@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Product } from "../../types/product";
 import { toast, Toaster } from "sonner";
@@ -7,20 +7,21 @@ interface FormValues {
   name: string;
   price: number;
   category: string;
-  image: string;
+  image: FileList;
+  imageUrl: string;
   stock: number;
   description: string;
   ratings: number;
 }
 
-interface ProductFormModalProps {
+interface ProductModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (data: FormValues) => void;
   defaultValues?: Partial<Product>;
 }
 
-const ProductFormModal: React.FC<ProductFormModalProps> = ({
+const ProductModal: React.FC<ProductModalProps> = ({
   isOpen,
   onClose,
   onSubmit,
@@ -33,27 +34,54 @@ const ProductFormModal: React.FC<ProductFormModalProps> = ({
     formState: { errors },
   } = useForm<FormValues>();
 
+  const [currentImage, setCurrentImage] = useState<string | null>(null);
+  const [useUrl, setUseUrl] = useState(false);
+
   useEffect(() => {
     if (defaultValues) {
       reset(defaultValues as FormValues);
+      if (defaultValues.image) {
+        setCurrentImage(defaultValues.image as string);
+      }
     }
   }, [defaultValues, reset]);
 
-  const handleFormSubmit: SubmitHandler<FormValues> = (data) => {
-    // const { price, stock } = data;4
-    const productDetails = {
+  const handleFormSubmit: SubmitHandler<FormValues> = async (data) => {
+    const productDetails: Partial<Product> = {
       name: data.name,
       category: data.category,
       price: Number(data.price),
       stock: Number(data.stock),
       ratings: Number(data.ratings),
-      image: data.image,
       description: data.description,
     };
 
-    onSubmit(productDetails);
-    toast.success("Changes have been save");
+    if (useUrl && data.imageUrl) {
+      productDetails.image = data.imageUrl;
+    } else if (data.image && data.image.length > 0) {
+      console.log(data.image);
+      const formData = new FormData();
+      formData.append("image", data.image[0]);
+
+      const response = await fetch(
+        `https://api.imgbb.com/1/upload?key=ee74842f81f029fb9561e589c2fe6b60`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      const result = await response.json();
+      productDetails.image = result.data.url;
+      console.log(productDetails.image);
+    } else {
+      productDetails.image = currentImage as string;
+    }
+
+    onSubmit(productDetails as FormValues);
+    toast.success("Changes have been saved");
     reset();
+    onClose();
   };
 
   if (!isOpen) return null;
@@ -61,7 +89,9 @@ const ProductFormModal: React.FC<ProductFormModalProps> = ({
   return (
     <div className="fixed inset-0 z-20 bg-gray-500 bg-opacity-75 flex items-center justify-center overflow-y-auto">
       <div className="bg-white p-8 rounded shadow-lg w-1/2">
-        <h2 className="text-2xl mb-4">Product Form</h2>
+        <h2 className="text-2xl mb-4">
+          {defaultValues ? "Edit Product" : "Create Product"}
+        </h2>
         <form onSubmit={handleSubmit(handleFormSubmit)}>
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">
@@ -113,7 +143,7 @@ const ProductFormModal: React.FC<ProductFormModalProps> = ({
               </label>
               <input
                 type="number"
-                {...register("ratings", { required: "Ratings is required" })}
+                {...register("ratings", { required: "Ratings are required" })}
                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
               />
               {errors.ratings && (
@@ -123,7 +153,6 @@ const ProductFormModal: React.FC<ProductFormModalProps> = ({
               )}
             </div>
           </div>
-
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">
               Category
@@ -138,19 +167,56 @@ const ProductFormModal: React.FC<ProductFormModalProps> = ({
               </span>
             )}
           </div>
-
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">
-              Image URL
+              Image
             </label>
-            <input
-              {...register("image", { required: "Image URL is required" })}
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-            />
-            {errors.image && (
-              <span className="text-red-500 text-sm">
-                {errors.image.message}
-              </span>
+            {useUrl ? (
+              <>
+                <input
+                  type="text"
+                  {...register("imageUrl", {
+                    required: !currentImage ? "Image is required" : false,
+                  })}
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                />
+                <button
+                  type="button"
+                  onClick={() => setUseUrl(false)}
+                  className="text-blue-500 mt-2"
+                >
+                  Use file upload
+                </button>
+              </>
+            ) : (
+              <>
+                <input
+                  type="file"
+                  {...register("image", {
+                    required: !currentImage ? "Image is required" : false,
+                  })}
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                />
+                {errors.image && (
+                  <span className="text-red-500 text-sm">
+                    {errors.image.message}
+                  </span>
+                )}
+                {currentImage && (
+                  <img
+                    src={currentImage}
+                    alt="Current"
+                    className="mt-2 max-w-xs bg-red-500 h-48"
+                  />
+                )}
+                <button
+                  type="button"
+                  onClick={() => setUseUrl(true)}
+                  className="text-blue-500 mt-2"
+                >
+                  Use URL
+                </button>
+              </>
             )}
           </div>
           <div className="mb-4">
@@ -161,18 +227,14 @@ const ProductFormModal: React.FC<ProductFormModalProps> = ({
               {...register("description", {
                 required: "Description is required",
               })}
-              name="description"
-              id="description"
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
             ></textarea>
-
             {errors.description && (
               <span className="text-red-500 text-sm">
                 {errors.description.message}
               </span>
             )}
           </div>
-
           <div className="flex justify-end">
             <button
               type="button"
@@ -198,4 +260,4 @@ const ProductFormModal: React.FC<ProductFormModalProps> = ({
   );
 };
 
-export default ProductFormModal;
+export default ProductModal;

@@ -7,9 +7,10 @@ import {
   useDeleteProductMutation,
 } from "../../redux/features/product/productApi";
 import ProductListTable from "../../components/ui/ProductListTable";
-import ProductFormModal from "../../components/ui/ProductFormModal";
+import ProductModal from "../../components/ui/ProductFormModal";
 import { Product } from "../../types/product";
 import Swal from "sweetalert2";
+import { toast, Toaster } from "sonner";
 
 const ProductManagement = () => {
   const { data: response, refetch } = useGetProductsQuery();
@@ -18,7 +19,7 @@ const ProductManagement = () => {
   const [deleteProduct] = useDeleteProductMutation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentProduct, setCurrentProduct] = useState<Partial<Product> | null>(
-    {}
+    null
   );
   const products = response?.data || [];
 
@@ -27,11 +28,11 @@ const ProductManagement = () => {
   }, [currentProduct]);
 
   const handleCreate = () => {
-    setCurrentProduct({});
+    setCurrentProduct(null);
     setIsModalOpen(true);
   };
 
-  const handleEdit = (product: any) => {
+  const handleEdit = (product: Product) => {
     setCurrentProduct(product);
     setIsModalOpen(true);
   };
@@ -61,8 +62,10 @@ const ProductManagement = () => {
   const handleFormSubmit = async (product: any) => {
     if (currentProduct && currentProduct._id) {
       await updateProduct({ ...currentProduct, ...product });
+      toast.success("Product has been updated.");
     } else {
       await addProduct(product);
+      toast.success("Product has been added.");
     }
     setIsModalOpen(false);
     refetch();
@@ -86,12 +89,15 @@ const ProductManagement = () => {
         onDelete={handleDelete}
       />
 
-      <ProductFormModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onSubmit={handleFormSubmit}
-        defaultValues={currentProduct || {}}
-      />
+      {isModalOpen && (
+        <ProductModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onSubmit={handleFormSubmit}
+          defaultValues={currentProduct || undefined}
+        />
+      )}
+      <Toaster position="top-center" richColors />
     </div>
   );
 };
