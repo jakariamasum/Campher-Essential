@@ -51,7 +51,7 @@ const ProductModal: React.FC<ProductModalProps> = ({
       category: data.category,
       price: Number(data.price),
       stock: Number(data.stock),
-      ratings: Number(data.ratings) | 0,
+      ratings: Number(data.ratings),
       description: data.description,
     };
 
