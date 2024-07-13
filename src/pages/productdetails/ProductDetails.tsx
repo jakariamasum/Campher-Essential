@@ -19,7 +19,7 @@ const ProductDetailsPage = () => {
     data: response,
     error,
     isLoading,
-  } = useGetProductsByIdQuery(productId);
+  } = useGetProductsByIdQuery(productId, { pollingInterval: 1000 });
   const product = response?.data || [];
 
   const [quantity, setQuantity] = useState(1);
@@ -69,7 +69,6 @@ const ProductDetailsPage = () => {
     activeFillColor: "hsla(32, 100%, 50%, 1)",
     inactiveFillColor: "#888",
   };
-  const randomNumber = Math.floor(Math.random() * (200 - 40 + 1)) + 40;
 
   if (isLoading) return <div className="text-center mt-8">Loading...</div>;
   if (error) return <div className="text-center mt-8">Error</div>;
@@ -112,7 +111,7 @@ const ProductDetailsPage = () => {
               value={product?.ratings}
               readOnly
             />
-            <span>({randomNumber})</span>
+            <span>(600)</span>
           </div>
           <div className="flex items-center mb-4">
             <label htmlFor="quantity" className="mr-2">

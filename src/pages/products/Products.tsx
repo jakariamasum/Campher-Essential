@@ -8,7 +8,11 @@ const Products = () => {
   const [categoryFilter, setCategoryFilter] = useState("");
   const [priceRange, setPriceRange] = useState("");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
-  const { data: response, error, isLoading } = useGetProductsQuery();
+  const {
+    data: response,
+    error,
+    isLoading,
+  } = useGetProductsQuery(undefined, { pollingInterval: 500 });
 
   if (isLoading || error) return <div>Loading...</div>;
 

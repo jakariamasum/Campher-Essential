@@ -12,7 +12,7 @@ const FeaturedProducts = () => {
     return <div>No products available</div>;
   }
 
-  const products: Product[] = response.data;
+  const products: Product[] = response.data.slice(0, 6);
 
   return (
     <div className="max-w-[1230px] mx-auto my-12">

@@ -58,10 +58,10 @@ const ProductModal: React.FC<ProductModalProps> = ({
 
     if (useUrl && data.imageUrl) {
       productDetails.image = data.imageUrl;
-    } else if (data.image && data.image.length > 0) {
-      console.log(data.image);
+    } else if (data.image && typeof data.image !== "string") {
       const formData = new FormData();
       formData.append("image", data.image[0]);
+      console.log("fire here", data.image);
 
       const response = await fetch(
         `https://api.imgbb.com/1/upload?key=ee74842f81f029fb9561e589c2fe6b60`,

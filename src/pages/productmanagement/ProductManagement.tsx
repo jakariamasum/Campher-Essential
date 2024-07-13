@@ -13,7 +13,9 @@ import Swal from "sweetalert2";
 import { toast, Toaster } from "sonner";
 
 const ProductManagement = () => {
-  const { data: response, refetch } = useGetProductsQuery();
+  const { data: response, refetch } = useGetProductsQuery(undefined, {
+    pollingInterval: 500,
+  });
   const [addProduct] = useAddProductMutation();
   const [updateProduct] = useUpdateProductMutation();
   const [deleteProduct] = useDeleteProductMutation();

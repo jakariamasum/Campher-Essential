@@ -14,9 +14,9 @@ const BestSellingProducts = () => {
   }
 
   // Feature products with a price below $50
-  const bestSellingProducts: Product[] = response.data.filter(
-    (product: Product) => product.price < 50
-  );
+  const bestSellingProducts: Product[] = response.data
+    .filter((product: Product) => product.price < 50)
+    .slice(0, 6);
 
   return (
     <div className="max-w-[1230px] mx-auto my-12">
