@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../../../redux/hooks";
 import { RootState } from "../../../redux/store";
+import logo from "../../../assets/images/logo.png";
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -109,14 +110,15 @@ const Navbar = () => {
           </div>
 
           <Link to="/">
-            Campher Shop
-            {/* <img
-              className="lg:-ml-4 ml-8 hover:scale-110 transition-all duration-300"
-              src={"path/to/logo.png"} 
-              alt="Logo"
-              width={180}
-              height={190}
-            /> */}
+            {
+              <img
+                className="lg:-ml-4 bg-red-500 ml-8 hover:scale-110 transition-all duration-300"
+                src={logo}
+                alt="Logo"
+                width={80}
+                height={190}
+              />
+            }
           </Link>
         </div>
 
