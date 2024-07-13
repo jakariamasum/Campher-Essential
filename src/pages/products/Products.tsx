@@ -8,11 +8,7 @@ const Products = () => {
   const [categoryFilter, setCategoryFilter] = useState("");
   const [priceRange, setPriceRange] = useState("");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
-  const {
-    data: response,
-    error,
-    isLoading,
-  } = useGetProductsQuery(undefined, { pollingInterval: 500 });
+  const { data: response, error, isLoading } = useGetProductsQuery();
 
   if (isLoading || error) return <div>Loading...</div>;
 
@@ -48,7 +44,7 @@ const Products = () => {
         product?.category.toLowerCase() === categoryFilter.toLowerCase()
     )
     .filter((product) => {
-      if (!priceRange) return true; // Return all products if no price range selected
+      if (!priceRange) return true;
       const [minPrice, maxPrice] = priceRange.split("-").map(parseFloat);
       return product.price >= minPrice && product.price <= maxPrice;
     })
@@ -61,20 +57,20 @@ const Products = () => {
     });
 
   return (
-    <div className="max-w-[1230px] mx-auto my-12">
-      <div className="flex justify-between items-center my-8">
-        <div className="flex gap-2">
+    <div className="max-w-[1230px] mx-auto my-12 px-4 sm:px-6 lg:px-8">
+      <div className="flex flex-col md:flex-row justify-between items-center my-8 space-y-4 md:space-y-0">
+        <div className="flex flex-col sm:flex-row gap-2 items-center">
           <input
             type="text"
             placeholder="Search by name or description"
             value={searchTerm}
             onChange={handleSearchChange}
-            className="border border-gray-300 px-2 py-1 rounded-md"
+            className="border border-gray-300 px-2 py-1 rounded-md w-full sm:w-auto"
           />
           <select
             value={categoryFilter}
             onChange={handleCategoryChange}
-            className="border border-gray-300 px-2 py-1 rounded-md"
+            className="border border-gray-300 px-2 py-1 rounded-md w-full sm:w-auto"
           >
             <option value="">All Categories</option>
             {products.map((prod) => (
@@ -86,7 +82,7 @@ const Products = () => {
           <select
             value={priceRange}
             onChange={handlePriceRangeChange}
-            className="border border-gray-300 px-2 py-1 rounded-md"
+            className="border border-gray-300 px-2 py-1 rounded-md w-full sm:w-auto"
           >
             <option value="">All Prices</option>
             <option value="0-50">$0 - $50</option>
@@ -99,7 +95,7 @@ const Products = () => {
           <select
             value={sortOrder}
             onChange={handleSortChange}
-            className="border border-gray-300 px-2 py-1 rounded-md"
+            className="border border-gray-300 px-2 py-1 rounded-md w-full sm:w-auto"
           >
             <option value="asc">Price Low to High</option>
             <option value="desc">Price High to Low</option>
@@ -111,13 +107,13 @@ const Products = () => {
               setPriceRange("");
               setSortOrder("asc");
             }}
-            className="btn bg-gray-300 hover:bg-gray-400 text-black px-4 py-1 rounded-md"
+            className="btn bg-gray-300 hover:bg-gray-400 text-black px-4 py-1 rounded-md w-full sm:w-auto"
           >
             Clear Filters
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 p-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 p-2">
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product) => (
             <ProductCard key={product._id} product={product} />

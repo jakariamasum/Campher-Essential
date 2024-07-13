@@ -1,23 +1,23 @@
 import { FaFacebookSquare, FaLinkedin } from "react-icons/fa";
 import { FaInstagramSquare, FaTwitter } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import logo from "../../../assets/images/logo.png";
 
 const Footer = () => {
   return (
-    <div className="bg-base-200 ">
-      <footer className="p-10 max-w-[1230px] mx-auto text-base-content gap-8 flex flex-col md:flex-row">
+    <div className="bg-base-200">
+      <footer className="p-6 sm:p-10 max-w-[1230px] mx-auto text-base-content gap-8 flex flex-col md:flex-row">
         <div className="flex-1">
           <Link to="/">
-            <h1 className="text-2xl font-bold text-black">Campers Shop</h1>
-            {/* <img
+            <img
               className="hover:scale-110 transition-all duration-300"
-              src={}
+              src={logo}
               alt="Logo"
-              width={180}
+              width={80}
               height={190}
-            /> */}
+            />
           </Link>
-          <p className="w-72 text-justify mt-4">
+          <p className="w-full sm:w-72 text-justify mt-4">
             Welcome to <span className="font-semibold">Campers Shop</span>, your
             ultimate destination for all things camping. Dive into a world where
             adventure meets comfort. Discover the joy of camping with us.
@@ -39,7 +39,7 @@ const Footer = () => {
         </div>
 
         <nav className="flex-1">
-          <h6 className=" border-b-2 border-[#22A1F0] mb-4 font-semibold">
+          <h6 className="border-b-2 border-[#22A1F0] mb-4 font-semibold">
             Quick Links
           </h6>
           <ul>
@@ -71,7 +71,7 @@ const Footer = () => {
           </ul>
         </nav>
         <nav className="flex-1">
-          <h6 className=" border-b-2 border-[#22A1F0] mb-4 font-semibold">
+          <h6 className="border-b-2 border-[#22A1F0] mb-4 font-semibold">
             Legal
           </h6>
           <ul>
@@ -93,20 +93,20 @@ const Footer = () => {
           </ul>
         </nav>
         <div className="flex-1">
-          <h6 className=" border-b-2 border-[#22A1F0] mb-4 font-semibold">
+          <h6 className="border-b-2 border-[#22A1F0] mb-4 font-semibold">
             Newsletter
           </h6>
           <fieldset className="form-control">
             <label className="label">
               <span className="label-text">Enter Your Email Address</span>
             </label>
-            <div className="flex">
+            <div className="flex flex-col sm:flex-row">
               <input
                 type="email"
                 placeholder="Username@site.com"
-                className="input w-full border border-[#22A1F0] p-2"
+                className="input w-full border border-[#22A1F0] p-2 mb-2 sm:mb-0"
               />
-              <button className="btn bg-[#22A1F0] hover:bg-black text-white ml-2 p-2">
+              <button className="btn bg-[#22A1F0] hover:bg-black text-white p-2 sm:ml-2">
                 Subscribe
               </button>
             </div>

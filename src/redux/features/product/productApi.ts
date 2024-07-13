@@ -1,9 +1,11 @@
 import { Product } from "../../../types/product";
 import { baseApi } from "../../api/baseApi";
-
+interface ApiResponse {
+  data: Product[];
+}
 const productApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getProducts: builder.query<Product[], void>({
+    getProducts: builder.query<ApiResponse, void>({
       query: () => ({
         url: "/products",
         method: "GET",

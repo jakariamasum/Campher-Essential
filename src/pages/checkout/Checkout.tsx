@@ -4,7 +4,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
-import { clearCart } from "../../redux/features/cart/cartSlice";
+import { CartItem, clearCart } from "../../redux/features/cart/cartSlice";
 import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
 
@@ -47,7 +47,7 @@ const Checkout: React.FC = () => {
         cartItems.map((item) => {
           console.log(item.product._id);
           return axios.put(
-            `http://localhost:5000/api/v1/products/decrease-stock/${item.product._id}`,
+            `https://camp-essential.vercel.app/api/v1/products/decrease-stock/${item.product._id}`,
             {
               quantity: item.quantity,
             }
@@ -72,13 +72,17 @@ const Checkout: React.FC = () => {
     }
   };
 
-  const makePayment = async (cartItems) => {
+  const makePayment = async (cartItems: CartItem[]) => {
     try {
       const stripe = await loadStripe(
         "pk_test_51NFKgXEzrlDWkzjgpZshOM6ZKUWe54LTR8tg6hhOGybv7wp7AlXkGURZr41IRZ2EOUkMdYoa2zv6qIlz2d7BqSnq003cfIN6E9"
       );
+
+      if (!stripe) {
+        throw new Error("Stripe failed to initialize");
+      }
       const response = await axios.post(
-        "http://localhost:5000/api/v1/payments",
+        "https://camp-essential.vercel.app/api/v1/payments",
         { quantity: totalItems, products: cartItems }
       );
       const session = response.data;

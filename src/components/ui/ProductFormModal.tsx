@@ -39,7 +39,7 @@ const ProductModal: React.FC<ProductModalProps> = ({
 
   useEffect(() => {
     if (defaultValues) {
-      reset(defaultValues as FormValues);
+      reset(defaultValues as unknown as FormValues);
       if (defaultValues.image) {
         setCurrentImage(defaultValues.image as string);
       }
@@ -78,7 +78,7 @@ const ProductModal: React.FC<ProductModalProps> = ({
       productDetails.image = currentImage as string;
     }
 
-    onSubmit(productDetails as FormValues);
+    onSubmit(productDetails as unknown as FormValues);
     toast.success("Changes have been saved");
     reset();
     onClose();
