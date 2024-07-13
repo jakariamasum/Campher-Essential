@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
 import { clearCart } from "../../redux/features/cart/cartSlice";
 import axios from "axios";
+import { loadStripe } from "@stripe/stripe-js";
 
 interface FormValues {
   name: string;
@@ -16,6 +17,9 @@ interface FormValues {
 }
 
 const Checkout: React.FC = () => {
+  const location = useLocation();
+  const { totalItems } = location.state || { totalItems: 0 };
+
   const {
     register,
     handleSubmit,
@@ -63,11 +67,34 @@ const Checkout: React.FC = () => {
       navigate("/success");
     } else {
       // Handle Stripe payment
+      makePayment(cartItems);
       dispatch(clearCart());
-      navigate("/stripe-checkout");
     }
   };
 
+  const makePayment = async (cartItems) => {
+    try {
+      const stripe = await loadStripe(
+        "pk_test_51NFKgXEzrlDWkzjgpZshOM6ZKUWe54LTR8tg6hhOGybv7wp7AlXkGURZr41IRZ2EOUkMdYoa2zv6qIlz2d7BqSnq003cfIN6E9"
+      );
+      const response = await axios.post(
+        "http://localhost:5000/api/v1/payments",
+        { quantity: totalItems, products: cartItems }
+      );
+      const session = response.data;
+      console.log(session);
+
+      const result = await stripe.redirectToCheckout({
+        sessionId: session.id,
+      });
+
+      if (result.error) {
+        console.log(result.error.message);
+      }
+    } catch (error) {
+      console.error("Error during payment process:", error);
+    }
+  };
   return (
     <div className="max-w-[800px] mx-auto py-12 px-4">
       <h1 className="text-3xl font-semibold mb-8">Checkout</h1>

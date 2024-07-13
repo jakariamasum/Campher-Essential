@@ -6,6 +6,7 @@ import {
 } from "../../redux/features/cart/cartSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { useNavigate } from "react-router-dom";
+import { toast, Toaster } from "sonner";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ const Cart = () => {
 
   const handleRemoveFromCart = (productId: string) => {
     dispatch(removeFromCart(productId));
+    toast.info("Product have been removed");
   };
 
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
@@ -37,7 +39,7 @@ const Cart = () => {
   );
 
   const handlePlaceOrder = () => {
-    navigate("/checkout");
+    navigate("/checkout", { state: { totalItems } });
   };
 
   const isPlaceOrderDisabled = cartItems.some(
@@ -92,6 +94,7 @@ const Cart = () => {
           Place Order
         </button>
       </div>
+      <Toaster position="top-center" richColors />
     </div>
   );
 };

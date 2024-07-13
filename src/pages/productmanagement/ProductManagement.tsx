@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   useGetProductsQuery,
   useAddProductMutation,
@@ -9,6 +9,7 @@ import {
 import ProductListTable from "../../components/ui/ProductListTable";
 import ProductFormModal from "../../components/ui/ProductFormModal";
 import { Product } from "../../types/product";
+import Swal from "sweetalert2";
 
 const ProductManagement = () => {
   const { data: response, refetch } = useGetProductsQuery();
@@ -17,34 +18,50 @@ const ProductManagement = () => {
   const [deleteProduct] = useDeleteProductMutation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentProduct, setCurrentProduct] = useState<Partial<Product> | null>(
-    null
+    {}
   );
   const products = response?.data || [];
 
+  useEffect(() => {
+    console.log("Current Product:", currentProduct);
+  }, [currentProduct]);
+
   const handleCreate = () => {
-    setCurrentProduct(null);
+    setCurrentProduct({});
     setIsModalOpen(true);
   };
 
   const handleEdit = (product: any) => {
     setCurrentProduct(product);
-    console.log(currentProduct);
     setIsModalOpen(true);
   };
 
   const handleDelete = async (id: string) => {
-    console.log(id);
-    if (window.confirm("Are you sure you want to delete this product?")) {
-      await deleteProduct(id);
-      refetch();
-    }
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await deleteProduct(id);
+        refetch();
+        Swal.fire({
+          title: "Deleted!",
+          text: "Product has been deleted.",
+          icon: "success",
+        });
+      }
+    });
   };
 
   const handleFormSubmit = async (product: any) => {
-    if (currentProduct) {
+    if (currentProduct && currentProduct._id) {
       await updateProduct({ ...currentProduct, ...product });
     } else {
-      console.log(product);
       await addProduct(product);
     }
     setIsModalOpen(false);

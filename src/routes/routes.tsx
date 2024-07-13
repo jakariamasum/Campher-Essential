@@ -10,6 +10,7 @@ import Checkout from "../pages/checkout/Checkout";
 import Success from "../pages/success/Success";
 import ProductManagement from "../pages/productmanagement/ProductManagement";
 import CategoryPage from "../pages/category/CategoryPage";
+import Cancel from "../pages/cancel/Cancel";
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
       {
         path: "success",
         element: <Success />,
+      },
+      {
+        path: "success",
+        element: <Cancel />,
       },
       {
         path: "dashboard",

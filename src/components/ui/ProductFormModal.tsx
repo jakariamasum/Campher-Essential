@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Product } from "../../types/product";
+import { toast, Toaster } from "sonner";
 
 interface FormValues {
   name: string;
@@ -30,9 +31,7 @@ const ProductFormModal: React.FC<ProductFormModalProps> = ({
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormValues>({
-    defaultValues: defaultValues as FormValues,
-  });
+  } = useForm<FormValues>();
 
   useEffect(() => {
     if (defaultValues) {
@@ -53,6 +52,7 @@ const ProductFormModal: React.FC<ProductFormModalProps> = ({
     };
 
     onSubmit(productDetails);
+    toast.success("Changes have been save");
     reset();
   };
 
@@ -176,7 +176,10 @@ const ProductFormModal: React.FC<ProductFormModalProps> = ({
           <div className="flex justify-end">
             <button
               type="button"
-              onClick={onClose}
+              onClick={() => {
+                onClose();
+                reset();
+              }}
               className="bg-gray-500 text-white px-4 py-2 rounded mr-2"
             >
               Cancel
@@ -190,6 +193,7 @@ const ProductFormModal: React.FC<ProductFormModalProps> = ({
           </div>
         </form>
       </div>
+      <Toaster position="top-center" richColors />
     </div>
   );
 };

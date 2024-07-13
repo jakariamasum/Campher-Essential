@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useGetProductsByIdQuery } from "../../redux/features/product/productApi";
 import { addToCart } from "../../redux/features/cart/cartSlice";
 import { RootState } from "../../redux/store";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Toaster, toast } from "sonner";
+
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { Rating, Star } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
@@ -154,7 +154,7 @@ const ProductDetailsPage = () => {
           </button>
         </div>
       </div>
-      <ToastContainer />
+      <Toaster position="top-center" richColors />
     </div>
   );
 };
