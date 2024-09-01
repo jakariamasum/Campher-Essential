@@ -7,7 +7,6 @@ import logo from "../../../assets/images/logo.png";
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const cartItems = useAppSelector((state: RootState) => state.cart.items);
-  console.log(cartItems);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -112,7 +111,7 @@ const Navbar = () => {
           <Link to="/">
             {
               <img
-                className="hidden lg:block lg:-ml-4 bg-red-500 ml-8 hover:scale-110 transition-all duration-300"
+                className="hidden lg:block lg:-ml-4  ml-8 hover:scale-110"
                 src={logo}
                 alt="Logo"
                 width={80}

@@ -34,11 +34,9 @@ const Checkout: React.FC = () => {
   );
 
   const decreaseStock = async (cartItems: any[]) => {
-    console.log(cartItems);
     try {
       await Promise.all(
         cartItems.map((item) => {
-          console.log(item.product._id);
           return axios.put(
             `https://camp-essential.vercel.app/api/v1/products/decrease-stock/${item.product._id}`,
             {
@@ -79,7 +77,6 @@ const Checkout: React.FC = () => {
         { quantity: totalItems, products: cartItems }
       );
       const session = response.data;
-      console.log(session);
 
       const result = await stripe.redirectToCheckout({
         sessionId: session.id,

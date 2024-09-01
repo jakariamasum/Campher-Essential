@@ -25,9 +25,7 @@ const ProductManagement = () => {
   );
   const products = response?.data || [];
 
-  useEffect(() => {
-    console.log("Current Product:", currentProduct);
-  }, [currentProduct]);
+  useEffect(() => {}, [currentProduct]);
 
   const handleCreate = () => {
     setCurrentProduct(null);

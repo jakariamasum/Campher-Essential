@@ -5,7 +5,6 @@ import { Product } from "../../types/product";
 import { Link } from "react-router-dom";
 
 const ProductCard = ({ product }: { product: Product }) => {
-  console.log(product);
   const myStyles = {
     itemShapes: Star,
     activeFillColor: "hsla(32, 100%, 50%, 1)",
